@@ -25,10 +25,11 @@ const deliveryOrder = [
     id: 1,
     receipient_name: 'Peace',
     weight: '1kg',
-    town: 'Noirobi',
-    country: 'Kanya',
+    destinationTown: 'Noirobi',
+    destinationCountry: 'Kanya',
     postcode: '101',
     phone: '0784354333',
+    status: 'In transit',
   },
 ];
 
@@ -93,10 +94,11 @@ app.post('/api/v1/create_delivery_order', (req, res) => {
     id: deliveryOrder.length + 1,
     receipient_name: req.body.receipient,
     weight: req.body.weight,
-    town: req.body.town,
-    country: req.body.country,
+    destinationTown: req.body.destinationTown,
+    destinationCountry: req.body.destinationCountry,
     postcode: req.body.postcode,
     phone: req.body.phone,
+    status: 'In transit',
   };
   if (deliveryOrder.push(order)) {
     res.send('Parcel ordered');
@@ -113,11 +115,44 @@ app.get('/api/v1/get_delivery_order', (req, res) => {
 
 // GET SPECIFIC ORDER
 
-app.get('/api/v1/get_order/:id', (res, req) => {
-  const order = deliveryOrder.find(f => f.id === parseInt(req.params.id, 10));
+app.get('/api/v1/get_order/:id', (req, res) => {
+  const order = deliveryOrder.find(o => o.id === parseInt(req.params.id, 10));
 
   if (!order) res.status(404).send('The order you requested was not found.');
   res.send(order);
+});
+
+// CHANGE THE DESTINATION OF THE PARCEL
+
+app.put('/api/v1/change_destination/:id', (res, req) => {
+  const order = deliveryOrder.find(o => o.id === parseInt(req.params.id, 10));
+
+  if (!order) return res.status(404).send('The order you requested was not found.');
+
+  order.receipient_name = req.body.receipient_name;
+  order.weight = req.body.weight;
+  order.destinationTown = req.body.destinationTown;
+  order.destinationCountry = req.body.destinationCountry;
+  order.postcode = req.body.postcode;
+  order.phone = req.body.phone;
+});
+
+// CHANGE THE STATUS OF AN ORDER
+app.put('/api/v1/change_status/:id', (res, req) => {
+  const order = deliveryOrder.find(o => o.id === parseInt(req.params.id, 10));
+  if (!order) return res.status(404).send('The order you requested was not found.');
+
+  order.status = req.body.status;
+});
+
+// DELETING AN ORDER
+app.delete('/api/v1/deleteOrder/:id', (req, res) => {
+  const order = deliveryOrder.find(o => o.id === parseInt(req.params.id, 10));
+  if (!order) return res.status(404).send('The order you requested was not found.');
+
+  const index = deliveryOrder.indexOf(order);
+  deliveryOrder.splice(index, 1);
+  return order;
 });
 
 
