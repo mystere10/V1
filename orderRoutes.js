@@ -51,7 +51,7 @@ router.get('/get_delivery_order', (req, res) => {
 router.get('/get_order/:id', (req, res) => {
   const order = deliveryOrder.find(o => o.id === parseInt(req.params.id, 10));
 
-  if (!order) res.status(404).send('The order you requested was not found.');
+  if (!order) return res.status(404).send('The order you requested was not found.');
   res.send(order);
 });
 

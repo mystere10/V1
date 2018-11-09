@@ -47,7 +47,7 @@ router.use('/register', (req, res) => {
 
 // GET ALL RESISTERED USERS
 
-router.get('/api/v1/users', (req, res) => {
+router.get('/users', (req, res) => {
   res.send(registration);
 });
 
