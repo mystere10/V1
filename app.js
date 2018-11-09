@@ -1,21 +1,15 @@
-/* eslint-disable prefer-destructuring */
+
+// import usersRoutes from './usersRoutes';
+
 const express = require('express');
+
+const usersRoutes = require('./usersRoutes');
 
 // Init app
 
 const app = express();
 
 app.use(express.json());
-
-// RESIGISTRATION ARRAY
-const registration = [
-  {
-    id: 1, f_name: 'nkunzi', lname: 'innocent', email: 'nkunziinnocent@gmail.com', password: 'nkunzi123', status: 'admin',
-  },
-  {
-    id: 2, f_name: 'kamali', lname: 'yves', email: 'kama@gmail.com', password: 'kama123', status: 'user',
-  },
-];
 
 // PARCEL ORDERS
 
@@ -40,52 +34,9 @@ const deliveryOrder = [
 
 */
 
+app.use('/api/v1/users', usersRoutes.login);
 
-app.post('/api/v1/registration', (req, res) => {
-  const user = {
-    id: registration.length + 1,
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    password: req.body.pass,
-    status: 'user',
-  };
-
-  if (registration.push(user)) {
-    res.send('Seccessfully registered');
-  } else {
-    res.send('Please try again latter');
-  }
-});
-
-/*
-
-#######################
-        LOGIN
-#######################
-
-*/
-
-app.post('/api/v1/login/:email/:password', (req, res) => {
-  // eslint-disable-next-line prefer-destructuring
-  const email = req.params.email;
-  const password = req.params.password;
-
-  for (let i = 0; i < registration.length; i += 1) {
-    if (registration[i].email === email && registration[i].password === password && registration[i].status === 'admin') {
-      res.send('Welcome Admin');
-    } else if (registration[i].email === email && registration[i].password === password && registration[i].status === 'user') {
-      res.send('Welcome costomer');
-    }
-  }
-});
-
-
-// GET ALL RESISTERED USERS
-
-app.get('/api/v1/users', (req, res) => {
-  res.send(registration);
-});
+app.use('/api/v1/users', usersRoutes.register);
 
 // CREATE PARCEL DELIVERY ORDER
 
