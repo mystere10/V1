@@ -114,7 +114,7 @@ app.get('/api/v1/get_delivery_order', (req, res) => {
 // GET SPECIFIC ORDER
 
 app.get('/api/v1/get_order/:id', (res, req) => {
-  const order = deliveryOrder.find(f => f.id === req.params.id);
+  const order = deliveryOrder.find(f => f.id === parseInt(req.params.id, 10));
 
   if (!order) res.status(404).send('The order you requested was not found.');
   res.send(order);
