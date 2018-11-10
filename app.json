@@ -1,0 +1,6 @@
+{
+    "name": "Server started",
+    "description": "A barebones Node.js app using express",
+    "repository": "https://https://github.com/mystere10/V1.git",
+    "keywords": ["node", "express", "static"]
+}

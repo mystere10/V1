@@ -51,4 +51,3 @@ router.get('/api/v1/users', (req, res) => {
   res.send(registration);
 });
 
-module.exports = router;
