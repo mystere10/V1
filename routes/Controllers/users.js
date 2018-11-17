@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
 
 const router = express.Router();
 
-// RESIGISTRATION ARRAY
+
+// RESIGISTRATION ARRAY INITIAL DATA
 const registration = [
   {
     id: 1, f_name: 'nkunzi', lname: 'innocent', email: 'nkunziinnocent@gmail.com', password: 'nkunzi123', status: 'admin',
