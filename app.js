@@ -1,7 +1,7 @@
 
 const express = require('express');
 
-const usersRoutes = require('./usersRoutes');
+const usersRoutes = require('./routes');
 
 
 // Init app
@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api/v1/users', usersRoutes);
+// app.use('/api/v1/users', usersRoutes);
 
 
 // PORT ASSIGNATION
