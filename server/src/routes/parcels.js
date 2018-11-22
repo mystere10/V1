@@ -6,21 +6,17 @@ const router = express.Router();
 
 router.post('/', controllers.createParcel);
 
-// router.get('/', controllers.getAllParcels);
+router.get('/', controllers.getAllParcels);
 
-// // router.get('/', controllers.getParcelByUserId);
+router.get('/', controllers.getParcelByUserId);
 
-// router.get('/:id', controllers.getOnePercel);
+router.get('/:id', controllers.getOnePercel);
 
-<<<<<<< HEAD
-// router.put('/:id', controllers.updateParcel);
-=======
-router.put('/:id', controllers.cancelParcel);
->>>>>>> ch-tesing-#162149970
+router.put('/:id', controllers.updateParcel);
 
-// router.delete('/:id', controllers.deleteParcel);
+router.delete('/:id', controllers.deleteParcel);
 
-// router.put('/status/:id', controllers.changeStatus);
+router.put('/status/:id', controllers.changeStatus);
 
 
 export default router;

@@ -2,20 +2,6 @@ import uuid from 'uuid/v1';
 
 let deliveryOrder = [
 
-<<<<<<< HEAD
-=======
-  {
-    id: '8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bf',
-    receipientName: 'Peace',
-    weight: '1kg',
-    destinationTown: 'Noirobi',
-    destinationCountry: 'Kanya',
-    postcode: '101',
-    phone: '0784354333',
-    status: 'In transit',
-    action: 'Active',
-  },
->>>>>>> ch-tesing-#162149970
 ];
 
 
@@ -33,11 +19,7 @@ const createParcel = (req, res) => {
   };
   if (deliveryOrder.push(order)) {
     res.status(200).send({
-<<<<<<< HEAD
       message: 'Order created',
-=======
-      status: 200,
->>>>>>> ch-tesing-#162149970
       parcels: [deliveryOrder],
     });
   } else {
