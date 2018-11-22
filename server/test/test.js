@@ -1,14 +1,14 @@
-// import { request } from 'http';
-
 import chai from 'chai';
 
 import request from 'supertest';
 
 import app from '../src/index';
 
-// const routes = require('../src/index');
-
-// import routes from '../src/index';
+/*
+  ##############################
+  TESTING PARCEL ORDER ENDPOINTS
+  ##############################
+*/
 
 describe('ENDPOINT TEST', () => {
   it('It should get all parcels orders', (done) => {
@@ -66,6 +66,26 @@ describe('ENDPOINT TEST', () => {
         action: 'cancel',
       })
       .expect(202)
+      .end(done);
+  });
+
+  /*
+  ###########################
+    TESTING USER ENDPOINTS
+  ###########################
+  */
+
+  it('It should register an new user into the system', (done) => {
+    request(app)
+      .post('/api/v1/parcels')
+      .send({
+        fname: 'kamali',
+        lname: 'yves',
+        email: 'kama@gmail.com',
+        password: 'kama123',
+        status: 'user',
+      })
+      .expect(200)
       .end(done);
   });
 });
