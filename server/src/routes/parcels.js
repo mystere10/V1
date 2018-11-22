@@ -6,15 +6,17 @@ const router = express.Router();
 
 router.post('/', controllers.createParcel);
 
-router.get('/', controllers.getAllParcels);
+// router.get('/', controllers.getAllParcels);
 
-router.get('/:id', controllers.getOnePercel);
+// // router.get('/', controllers.getParcelByUserId);
 
-router.put('/:id', controllers.updateParcel);
+// router.get('/:id', controllers.getOnePercel);
 
-router.delete('/:id', controllers.deleteParcel);
+// router.put('/:id', controllers.updateParcel);
 
-router.put('/status/:id', controllers.changeStatus);
+// router.delete('/:id', controllers.deleteParcel);
+
+// router.put('/status/:id', controllers.changeStatus);
 
 
 export default router;
