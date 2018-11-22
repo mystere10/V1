@@ -1,12 +1,9 @@
 import uuid from 'uuid';
 
+import router from '../routes/parcels';
+
 const registration = [
-  {
-    id: uuid, f_name: 'nkunzi', lname: 'innocent', email: 'nkunziinnocent@gmail.com', password: 'nkunzi123', status: 'admin',
-  },
-  {
-    id: uuid, f_name: 'kamali', lname: 'yves', email: 'kama@gmail.com', password: 'kama123', status: 'user',
-  },
+
 ];
 
 const getAllUsers = (req, res) => {
@@ -39,12 +36,19 @@ const register = (req, res) => {
   if (registration.push(user)) {
     res.status(200).send('Seccessfully registered');
   } else {
-    res.status(400).send({ message: 'Please try again later'});
+    res.status(400).send({ message: 'Please try again later' });
   }
 };
+
+// const getParcelById = (req, res) => {
+
+//   res()
+
+// };
 
 export default {
   getAllUsers,
   login,
   register,
+  // getParcelById,
 };

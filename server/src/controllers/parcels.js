@@ -2,16 +2,6 @@ import uuid from 'uuid/v1';
 
 let deliveryOrder = [
 
-  {
-    id: '8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bf',
-    receipient_name: 'Peace',
-    weight: '1kg',
-    destinationTown: 'Noirobi',
-    destinationCountry: 'Kanya',
-    postcode: '101',
-    phone: '0784354333',
-    status: 'In transit',
-  },
 ];
 
 
@@ -28,8 +18,8 @@ const createParcel = (req, res) => {
   };
   if (deliveryOrder.push(order)) {
     res.status(200).send({
-      status: 200,
-      parcels: [],
+      message: 'Order created',
+      parcels: [deliveryOrder],
     });
   } else {
     res.status(400).send({ message: 'Plese try again' });
