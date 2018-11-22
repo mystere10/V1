@@ -28,11 +28,6 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-<<<<<<< HEAD
-=======
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.0",
->>>>>>> ch-tesing-#162149970
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
