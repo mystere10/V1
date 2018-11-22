@@ -12,7 +12,11 @@ router.post('/', controllers.createParcel);
 
 // router.get('/:id', controllers.getOnePercel);
 
+<<<<<<< HEAD
 // router.put('/:id', controllers.updateParcel);
+=======
+router.put('/:id', controllers.cancelParcel);
+>>>>>>> ch-tesing-#162149970
 
 // router.delete('/:id', controllers.deleteParcel);
 

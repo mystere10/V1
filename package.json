@@ -11,17 +11,28 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "express": "^4.16.3",
     "express-api-versioning": "^2.0.0",
     "joi": "^14.0.4",
+<<<<<<< HEAD
     "uuid": "^3.3.2",
     "chai-http": "^4.2.0",
     "chai": "^4.2.0"
+=======
+    "supertest": "^3.3.0",
+    "uuid": "^3.3.2"
+>>>>>>> ch-tesing-#162149970
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+<<<<<<< HEAD
+=======
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+>>>>>>> ch-tesing-#162149970
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
