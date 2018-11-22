@@ -37,9 +37,12 @@ const register = (req, res) => {
   };
 
   if (registration.push(user)) {
-    res.status(200).send('Seccessfully registered');
+    res.status(200).send({
+      users: [registration],
+      message: 'Seccessfully registered',
+    });
   } else {
-    res.status(400).send({ message: 'Please try again later'});
+    res.status(400).send({ message: 'Please try again later' });
   }
 };
 

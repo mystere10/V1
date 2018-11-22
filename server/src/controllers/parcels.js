@@ -4,13 +4,14 @@ let deliveryOrder = [
 
   {
     id: '8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bf',
-    receipient_name: 'Peace',
+    receipientName: 'Peace',
     weight: '1kg',
     destinationTown: 'Noirobi',
     destinationCountry: 'Kanya',
     postcode: '101',
     phone: '0784354333',
     status: 'In transit',
+    action: 'Active',
   },
 ];
 
@@ -18,18 +19,19 @@ let deliveryOrder = [
 const createParcel = (req, res) => {
   const order = {
     id: uuid(),
-    receipient_name: req.body.receipient,
+    receipientName: req.body.receipientName,
     weight: req.body.weight,
     destinationTown: req.body.destinationTown,
     destinationCountry: req.body.destinationCountry,
     postcode: req.body.postcode,
     phone: req.body.phone,
     status: 'In transit',
+    action: 'Active',
   };
   if (deliveryOrder.push(order)) {
     res.status(200).send({
       status: 200,
-      parcels: [],
+      parcels: [deliveryOrder],
     });
   } else {
     res.status(400).send({ message: 'Plese try again' });
@@ -60,7 +62,7 @@ const updateParcel = (req, res) => {
   if (!parcel) {
     res.status(404).send('Order not found');
   } else {
-    parcel.receipient_name = req.body.receipient_name;
+    parcel.receipientName = req.body.receipientName;
     parcel.weight = req.body.weight;
     parcel.destinationTown = req.body.destinationTown;
     parcel.destinationCountry = req.body.destinationCountry;
@@ -77,7 +79,7 @@ const updateParcel = (req, res) => {
   }
 };
 
-const deleteParcel = (req, res) => {
+const cancelParcel = (req, res) => {
   const { id } = req.params;
 
   const parcel = deliveryOrder.find(value => value.id === id);
@@ -85,11 +87,8 @@ const deleteParcel = (req, res) => {
   if (!parcel) {
     res.status(404).send('Parcel no existing');
   } else {
-    const index = deliveryOrder.indexOf(parcel);
-
-    deliveryOrder.splice(index, 1);
-
-    res.status(200).send('Order deleted');
+    parcel.action = req.params.action;
+    res.status(200).JSON.send({ message: 'Order canceled' });
   }
 };
 
@@ -100,7 +99,7 @@ const changeStatus = (req, res) => {
   const order = deliveryOrder.find(value => value.id === id, 10);
 
   if (!order) {
-    res.status(400).send({ message: 'Order not found' });
+    res.status(400).send.JSON({ message: 'Order not found' });
   } else {
     order.status = req.params.status;
     res.status(200).send('Status changed');
@@ -112,6 +111,6 @@ export default {
   getAllParcels,
   getOnePercel,
   updateParcel,
-  deleteParcel,
+  cancelParcel,
   changeStatus,
 };

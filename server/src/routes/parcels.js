@@ -12,7 +12,7 @@ router.get('/:id', controllers.getOnePercel);
 
 router.put('/:id', controllers.updateParcel);
 
-router.delete('/:id', controllers.deleteParcel);
+router.put('/:id', controllers.cancelParcel);
 
 router.put('/status/:id', controllers.changeStatus);
 
