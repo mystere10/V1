@@ -77,7 +77,7 @@ describe('ENDPOINT TEST', () => {
 
   it('It should register an new user into the system', (done) => {
     request(app)
-      .post('/api/v1/parcels')
+      .post('/api/v1/users')
       .send({
         fname: 'kamali',
         lname: 'yves',
@@ -86,6 +86,24 @@ describe('ENDPOINT TEST', () => {
         status: 'user',
       })
       .expect(200)
+      .end(done);
+  });
+
+  it('It should login a user in order to create orders', (done) => {
+    request(app)
+      .post('/api/v1/users')
+      .send({
+        email: 'nkunziinnocent@gmail.com',
+        password: 'nkunzi123',
+      })
+      .expect(200)
+      .end(done);
+  });
+
+  it('It should get all users redisted in the system', (done) => {
+    request(app)
+      .get('/api/v1/users')
+      .expect(202)
       .end(done);
   });
 });
