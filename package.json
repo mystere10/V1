@@ -4,7 +4,7 @@
   "description": "SendIT",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --require babel-register test/test.js",
+    "test": "mocha --require babel-register test/get_parcels_test.js",
     "start": "nodemon --exec babel-node src/index.js"
   },
   "author": "",

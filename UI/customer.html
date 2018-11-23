@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<style type="text/css">
+    #map{
+      height:auto;
+      width:400px%;
+      float: right;
+      margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+	<header class="header">
+		<a href="customer.html" class="logo">sendIT</a>
+		<div class="nav">
+			<a href="your_orders.html">List of orders</a>
+			<a href="delivered.html">Orders delivered</a>
+			<a href="transit.html">Orders in transit</a>
+			<a href="login.html">Logout</a>
+		</div>
+	</header>
+
+	<div class="s-layout">
+	<!-- Sidebar -->
+	<div class="s-layout__sidebar">
+  	<a class="s-sidebar__trigger" href="#0">
+     <i class="fa fa-bars"></i>
+  	</a>
+
+  	<nav class="s-sidebar__nav">
+     <ul>
+        <li>
+           <a class="s-sidebar__nav-link" href="makeorder.html"">
+             <em>Make order</em>
+           </a>
+        </li>
+        <li>
+           <a class="s-sidebar__nav-link" href="your_orders.html">
+             <em>My Orders</em>
+           </a>
+        </li>
+     </ul>
+  </nav>
+</div>
+
+<!-- Content -->
+	<main class="s-layout__content">
+		<a href="your_orders.html"><img src="./Assets/orders.png">Orders</a>
+		<a href="transit.html"><img src="./Assets/transit.jpg">Orders In transit</a>
+		<a href="delivered.html"><img src="./Assets/delivered.png">Orders delivered</a>
+	</main>
+</div>
+	
+
+	<footer>
+          <div class="footer">
+            <a href="homepage.html"><p>© 2018 Copyright:sendIT</p></a>
+          </div>
+        </footer>
+
+
+</html>
+
+<script>
+/*        function initMap(){
+            var options = {
+                zoom:8,
+                center:{lat:1.5035, lng:-29.6325}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), options);
+        }
+        </script>
+    
+   
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCluMaZTeYeWEoDJGnentr1lBlw0jyufvE&callback=initMap"
+   async defer>
+   	 
+   </script>
+    
+            

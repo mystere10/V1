@@ -1,9 +1,16 @@
-import uuid from 'uuid';
+import uuid from 'uuid/v1';
 
-import router from '../routes/parcels';
+import parcelsRouter from '../routes/parcels';
+
+import router from '../routes/users';
 
 const registration = [
-
+  {
+    id: '8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bu', f_name: 'nkunzi', lname: 'innocent', email: 'nkunziinnocent@gmail.com', password: 'nkunzi123', status: 'admin',
+  },
+  {
+    id: '8cdu31b0-eb3c-11e8-9db2-25ea4fd7f1bf', f_name: 'kamali', lname: 'yves', email: 'kama@gmail.com', password: 'kama123', status: 'user',
+  },
 ];
 
 const getAllUsers = (req, res) => {
@@ -25,7 +32,7 @@ const login = (req, res) => {
 
 const register = (req, res) => {
   const user = {
-    id: uuid,
+    id: uuid(),
     fname: req.body.fname,
     lname: req.body.lname,
     email: req.body.email,
@@ -34,24 +41,32 @@ const register = (req, res) => {
   };
 
   if (registration.push(user)) {
-    res.status(200).send({
-      users: [registration],
-      message: 'Seccessfully registered',
+    res.status(201).send({
+      users: registration.pop(),
+      message: 'Successfully registered',
     });
   } else {
     res.status(400).send({ message: 'Please try again later' });
   }
 };
 
-// const getParcelById = (req, res) => {
+const getUserById = (req, res) => {
 
-//   res()
+  const { id } = req.params;
+  const user = registration.find(value => value.id === id);
+  if (!user) {
+    res.status(404).send({ message: 'Not found' });
+  }
+  res.status(200).send({
+    user,
+  });
+};
 
-// };
 
 export default {
   getAllUsers,
   login,
   register,
-  // getParcelById,
+  getUserById,
+  registration,
 };

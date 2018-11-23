@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Admin</title>
+</head>
+<body>
+	<header class="header">
+		<a href="customer.html" class="logo">sendIT</a>
+		<div class="nav">
+			<a href="your_orders.html">List of orders</a>
+			<a href="delivered.html">Orders delivered</a>
+			<a href="transit.html">Orders in transit</a>
+			<a href="#">Logout</a>
+		</div>
+	</header>
+
+	<div class="s-layout">
+	<!-- Sidebar -->
+	<div class="s-layout__sidebar">
+  	<a class="s-sidebar__trigger" href="#0">
+     <i class="fa fa-bars"></i>
+  	</a>
+
+  	<nav class="s-sidebar__nav">
+     <ul>
+        <li>
+           <a class="s-sidebar__nav-link" href="makeorder.html"">
+             <em>Make order</em>
+           </a>
+        </li>
+        <li>
+           <a class="s-sidebar__nav-link" href="your_orders.html">
+             <em>My Orders</em>
+           </a>
+        </li>
+     </ul>
+  </nav>
+</div>
+
+<!-- Content -->
+	<main class="s-layout__content">
+		<div class="">
+			<p><label for="name">Reciepient Name</label></p>
+    		<p><input type="text" id="name" name="firstname" placeholder="Reciepint name.."></p>
+
+    		<p><label for="weight">Weight</label></p>
+    		<p><input type="number" id="weight" name="weright" placeholder="The weight of your parcel..">Kg</p>
+
+    		<p><label for="Detinastion Town">Destination town</label></p>
+    		<p><input type="text" id="weight" name="weright" placeholder="The weight of your parcel.."></p>
+
+    		<p><label for="Detinastion Country">Destination country</label></p>
+    		<p><input type="text" id="weight" name="weight" placeholder="The destination country."></p>
+
+    		<p><label for="Postcode">Postcode</label></p>
+    		<input type="text" id="postcode" name="postcode" placeholder="Postcode..">
+
+    		<p><label for="Phone">Phone</label></p>
+    		<p><input type="text" id="phone" name="phone" placeholder="Your phone number"></p>
+  			<br />
+    		<input type="submit" value="Submit" onclick="alert("Order submitted")">
+    	</div>
+
+	</main>
+</div>
+	
+	<footer>
+          <div class="footer">
+            <a href="homepage.html"><p>© 2018 Copyright:sendIT</p></a>
+          </div>
+    </footer>
+</body>
+</html>

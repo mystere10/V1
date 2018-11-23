@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.get('/', controllers.getAllUsers);
 
-// router.get('/:id/:parcelid', controllers.getParcelById);
+router.get('/:id', controllers.getUserById);
+
+// router.get('/:id/:parcelid', controllers.getParcelsById);
 
 router.post('/:email/:password', controllers.login);
 
