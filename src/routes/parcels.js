@@ -8,15 +8,14 @@ router.post('/', controllers.createParcel);
 
 router.get('/', controllers.getAllParcels);
 
-router.get('/', controllers.getParcelByUserId);
+// router.get('/', controllers.getParcelByUserId);
 
 router.get('/:id', controllers.getOnePercel);
 
 router.put('/:id', controllers.updateParcel);
 
-router.delete('/:id', controllers.deleteParcel);
+// router.delete('/:id', controllers.deleteParcel);
 
 router.put('/status/:id', controllers.changeStatus);
-
 
 export default router;

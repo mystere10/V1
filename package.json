@@ -4,8 +4,8 @@
   "description": "SendIT",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --require babel-register server/test/test.js",
-    "start": "nodemon --exec babel-node server/src/index.js"
+    "test": "mocha --require babel-register test/test.js",
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "author": "",
   "license": "ISC",
