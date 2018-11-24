@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha --require babel-register test/get_parcels_test.js",
-    "start": "nodemon --exec babel-node src/index.js"
+    "cover": "istanbul cover _mocha",
+    "start": "nodemon --exec babel-node src/index.js",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "author": "",
   "license": "ISC",
@@ -24,11 +26,13 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "coveralls": "^3.0.2",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0"
   }
 }

@@ -1,17 +1,8 @@
 language: node_js
-node_js:
-- "8"
-
-deploy:
-  provider: script
-  script: "cp .npmrc.template $HOME/.npmrc && npm publish"
-  skip_cleanup: true
-  on:
-    tags: true
-
-notifications:
-  email:
-    recipients:
-    - julio@packagecloud.io
-    on_success: change
-    on_failure: always
+node_js: 
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+after_success:
+- npm run coveralls
