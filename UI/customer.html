@@ -4,7 +4,7 @@
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="./CSS/style.css">
 
 	<style type="text/css">
     #map{
@@ -26,6 +26,8 @@
 		</div>
 	</header>
 
+  <div class="wrapper">
+
 	<div class="s-layout">
 	<!-- Sidebar -->
 	<div class="s-layout__sidebar">
@@ -35,6 +37,11 @@
 
   	<nav class="s-sidebar__nav">
      <ul>
+      <li>
+           <a class="s-sidebar__nav-link" href="customer.html"">
+             <em>Home</em>
+           </a>
+        </li>
         <li>
            <a class="s-sidebar__nav-link" href="makeorder.html"">
              <em>Make order</em>
@@ -51,20 +58,38 @@
 
 <!-- Content -->
 	<main class="s-layout__content">
-		<a href="your_orders.html"><img src="./Assets/orders.png">Orders</a>
-		<a href="transit.html"><img src="./Assets/transit.jpg">Orders In transit</a>
-		<a href="delivered.html"><img src="./Assets/delivered.png">Orders delivered</a>
+
+    <div class="feature">
+          <span class="icon">
+              <a href="your_orders.html"><img src="./Assets/orders.png" alt=""></a>
+          </span>
+          <h3><a href="your_orders.html"></a>Orders</h3>
+      </div>
+
+      <div class="feature">
+          <span class="icon">
+              <a href="your_orders.html"><img src="./Assets/transit.jpg" alt=""></a>
+          </span>
+          <h3><a href="transit.html">Orders In transit</a></h3>
+      </div>
+
+      <div class="feature">
+          <span class="icon">
+              <a href="delivered.html"><img src="./Assets/delivered.png" alt=""></a>
+          </span>
+          <h3><a href="delivered.html">Orders delivered</a></h3>
+      </div>
 	</main>
 </div>
-	
-
-	<footer>
+</div>
+</body>
+	<section>
+        <footer>
           <div class="footer">
-            <a href="homepage.html"><p>© 2018 Copyright:sendIT</p></a>
+            <a href="index.html"><p>© 2018 Copyright:sendIT</p></a>
           </div>
         </footer>
-
-
+    </section>
 </html>
 
 <script>
