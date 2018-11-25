@@ -5,9 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "nyc --reporter=text --reporter=lcov mocha --timeout 25000 --require babel-register test/*.js --exit || true",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon --exec babel-node src/index.js",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "author": "",
   "license": "ISC",
