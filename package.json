@@ -4,8 +4,8 @@
   "description": "SendIT",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --require babel-register test/get_parcels_test.js",
-    "cover": "istanbul cover _mocha",
+    "test": "nyc --reporter=text --reporter=lcov mocha --timeout 25000 --require babel-register test/*.js --exit || true",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --exec babel-node src/index.js",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -33,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
   }
 }

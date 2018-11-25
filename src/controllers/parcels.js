@@ -16,15 +16,50 @@ let deliveryOrder = [
 
 
 const createParcel = (req, res) => {
+  const {
+    userId, receipientName, weight, destinationTown, destinationCountry, postcode, phone,
+  } = req.body;
+
+  if (!userId || userId === '' || userId === null) {
+    res.status(403).send('Plese the password need to be at least 6 charachers');
+  }
+  if (receipientName < 3) {
+    res.status(403).send('Plese the password need to be at least 6 charachers');
+  }
+
+  if (weight === '' || weight === null) {
+    res.status(403).send('Plese enter the weight of your parcel');
+  }
+
+  if (typeof (weight) !== 'number') {
+    res.status(403).send('Please enter only numbers');
+  }
+
+  if (destinationTown === '' || destinationTown === null) {
+    res.status(403).send('Plese enter the destination town');
+  }
+
+  if (destinationCountry === '' || destinationCountry === null) {
+    res.status(403).send('Plese enter the destination country');
+  }
+
+  if (postcode === '' || postcode === null) {
+    res.status(403).send('Plese enter the destination postcode');
+  }
+
+  if (phone === '' || phone === null) {
+    res.status(403).send('Plese enter the destination postcode');
+  }
+
   const order = {
     id: uuid(),
-    // userId: req.body.userId,
-    receipientName: req.body.receipientName,
-    weight: req.body.weight,
-    destinationTown: req.body.destinationTown,
-    destinationCountry: req.body.destinationCountry,
-    postcode: req.body.postcode,
-    phone: req.body.phone,
+    userId,
+    receipientName,
+    weight,
+    destinationTown,
+    destinationCountry,
+    postcode,
+    phone,
     status: 'In transit',
     action: 'Active',
   };
@@ -59,14 +94,20 @@ const updateParcel = (req, res) => {
   if (!parcel) {
     res.status(404).send('Order not found');
   } else {
-    // const {receipientName, weight, destinationTown} = req.body;
-    // parcel.receipientName = receipientName;
-    parcel.receipientName = req.body.receipientName;
-    parcel.weight = req.body.weight;
-    parcel.destinationTown = req.body.destinationTown;
-    parcel.destinationCountry = req.body.destinationCountry;
-    parcel.postcode = req.body.postcode;
-    parcel.phone = req.body.phone;
+    const {
+      receipientName,
+      weight,
+      destinationTown,
+      destinationCountry,
+      postcode,
+      phone,
+    } = req.body;
+    parcel.receipientName = receipientName;
+    parcel.weight = weight;
+    parcel.destinationTown = destinationTown;
+    parcel.destinationCountry = destinationCountry;
+    parcel.postcode = postcode;
+    parcel.phone = phone;
 
     deliveryOrder = deliveryOrder.map((value) => {
       if (value.id === id) {
@@ -92,7 +133,6 @@ const cancelParcel = (req, res) => {
 };
 
 const changeStatus = (req, res) => {
-
   const { id } = req.params;
 
   const order = deliveryOrder.find(value => value.id === id);
@@ -106,7 +146,6 @@ const changeStatus = (req, res) => {
 };
 
 const getParcelByUserId = (req, res) => {
-
   const { id } = req.params;
   const user = deliveryOrder.find(value => value.id === id);
   if (!user) {
