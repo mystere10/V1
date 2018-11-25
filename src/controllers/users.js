@@ -114,7 +114,7 @@ const getUserById = (req, res) => {
   if (!user) {
     res.status(404).send({ message: 'Not found' });
   }
-  res.status(200).send({
+  res.status(202).send({
     user,
   });
 };

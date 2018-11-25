@@ -4,7 +4,7 @@ import request from 'supertest';
 
 import app from '../src/index';
 
-describe('ENDPOINT TEST TO GET USERS', () => {
+describe('ENDPOINT TEST TO GET PARCELS', () => {
   it('It should get all parcels orders', (done) => {
     request(app)
       .get('/api/v1/parcels')
