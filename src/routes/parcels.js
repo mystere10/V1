@@ -14,6 +14,6 @@ router.get('/:id', controllers.getOnePercel);
 
 router.put('/:id', controllers.updateParcel);
 
-router.put('/cancel/:id', controllers.changeStatus);
+router.put('/cancel/:id', controllers.cancelParcel);
 
 export default router;
