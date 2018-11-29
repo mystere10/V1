@@ -2,18 +2,22 @@ import express from 'express';
 
 import controllers from '../controllers/parcels';
 
+import auth from '../helpers/auth';
+
 const router = express.Router();
 
 router.post('/', controllers.createParcel);
 
 router.get('/', controllers.getAllParcels);
 
-router.get('/users/:id/', controllers.getParcelByUserId);
+router.get('/:id', controllers.getOneParcel);
 
-router.get('/:id', controllers.getOnePercel);
+router.put('/status/:id', auth, controllers.changeStatus);
 
-router.put('/:id', controllers.updateParcel);
+router.put('/:id/prelocation', auth, controllers.preLocation);
 
-router.put('/cancel/:id', controllers.cancelParcel);
+router.put('/:id/destination', auth, controllers.changeDestination);
+
+// router.put('/:id/presentLocation, controllers.changePresntLoacation');
 
 export default router;

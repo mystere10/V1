@@ -23,7 +23,7 @@ const login = (req, res) => {
   } else {
     db.query('SELECT * FROM registration WHERE email=$1 and password=$2', [email, password])
       .then((response) => {
-        jwt.sign({ response: response[0] }, 'secretkey', (err, token) => {
+        jwt.sign({ response: response.rows[0] }, 'secretkey', (err, token) => {
           res.json({
             token,
             message: 'Weclome this is your token',
@@ -41,37 +41,39 @@ const register = (req, res) => {
     fname, lname, email, phone, password,
   } = req.body;
   if (fname === '' || fname === null) {
-    res.status(403).send('Please enter your First name');
+    res.status(403).send({ message: 'Please enter your First name' });
   }
   if (fname.length < 3) {
-    res.status(403).send('The name should be at least 3 characters');
+    res.status(403).send({ message: 'The name should be at least 3 characters' });
   }
   if (lname === '' || fname === null) {
-    res.status(403).send('Please enter your last name');
+    res.status(403).send({ message: 'Please enter your last name' });
   }
   if (lname.length < 3) {
-    res.status(403).send('The name should be at least 3 characters');
+    res.status(403).send({ message: 'The name should be at least 3 characters' });
   }
   if (email === '' || null) {
-    res.status(403).send('Please enter your email');
+    res.status(403).send({ message: 'Please enter your email' });
   }
   if (email.indexOf('@', 0) < 0) {
-    res.status(403).send('Please fill a valid email');
+    res.status(403).send({ message: 'Please fill a valid email' });
   }
   if (email.indexOf('.', 0) < 0) {
-    res.status(403).send('Please fill a valid email');
+    res.status(403).send({ message: 'Please fill a valid email' });
   }
   if (password === '' || password === null) {
-    res.status(403).send('Please fill out your password');
+    res.status(403).send({ message: 'Please fill out your password' });
   }
   if (password.length < 6) {
-    res.status(403).send('Plese the password need to be at least 6 charachers');
+    res.status(403).send({ message: 'Plese the password need to be at least 6 charachers' });
   } else {
     const user = 'user';
-    const query = 'INSERT INTO registration(fname, lname, email, phone, password, function)values($1,$2,$3,$4,$5,$6)';
+    const query = 'INSERT INTO registration(fname, lname, email, phone, password, function)values($1,$2,$3,$4,$5,$6) returning*';
     db.query(query, [fname, lname, email, phone, password, user])
       .then((response) => {
-        res.status(201).send({ message: 'user registered successfully', response: response[0] });
+        jwt.sign({ response: response[0] }, 'secretkey', (err, token) => {
+          res.status(201).send({ message: 'user registered successfully', response: response.rows[0], token });
+        });
       })
       .catch((error) => {
         res.send({ message: 'Not inserted' });
