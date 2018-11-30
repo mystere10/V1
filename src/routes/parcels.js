@@ -18,6 +18,8 @@ router.put('/:id/prelocation', auth, controllers.preLocation);
 
 router.put('/:id/destination', auth, controllers.changeDestination);
 
+router.delete('/', controllers.deleteAllparcels);
+
 // router.put('/:id/presentLocation, controllers.changePresntLoacation');
 
 export default router;

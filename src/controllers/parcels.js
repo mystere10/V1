@@ -122,6 +122,17 @@ const changeDestination = (req, res) => {
   });
 };
 
+const deleteAllparcels = (req, res) => {
+  db.query('DELETE * FROM orders')
+    .then((response) => {
+      if (response) {
+        res.status(200).send({ message: 'The orders table is now empty' });
+      } else {
+        res.status(400).send({ message: 'The action could not terminate' });
+      }
+    });
+};
+
 export default {
   createParcel,
   getAllParcels,
@@ -129,4 +140,5 @@ export default {
   preLocation,
   changeDestination,
   changeStatus,
+  deleteAllparcels,
 };
