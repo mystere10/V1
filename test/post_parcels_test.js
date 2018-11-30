@@ -31,14 +31,14 @@ describe('It should test parcel creation', () => {
   });
   describe('Successful order creation', () => {
     it('It should acknowledge that parcel was created with created object', (done) => {
-      const id = uuidv1();
-      const parcel = {
-        id,
-        name: 'T-shirts',
-        origin: 'Kabarore',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 3,
+      const parcel = {      
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -58,14 +58,14 @@ describe('It should test parcel creation', () => {
 
   describe('invalid input', () => {
     it('It should display an invalid weight error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'Tshirts',
-        origin: 'Matambi',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 'aaaa',
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -77,14 +77,14 @@ describe('It should test parcel creation', () => {
     });
 
     it('It should display an invalid name error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: '123455',
-        origin: 'Matambi',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 11223,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -96,14 +96,14 @@ describe('It should test parcel creation', () => {
     });
 
     it('It should display an invalid origin error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'Tshirts',
-        origin: '12345',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 0.3,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -115,14 +115,14 @@ describe('It should test parcel creation', () => {
     });
 
     it('It should display an invalid destination error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'Tshirts',
-        origin: 'Kabarore',
-        destination: '122331',
-        userId: 3,
-        weight: 0.3,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -137,13 +137,14 @@ describe('It should test parcel creation', () => {
 
   describe('Absence of a field', () => {
     it('It should display a missing name error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        origin: 'Matambi',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 1,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -154,13 +155,14 @@ describe('It should test parcel creation', () => {
       });
     });
     it('It should display missing origin error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'T-shirts',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 1,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -171,13 +173,14 @@ describe('It should test parcel creation', () => {
       });
     });
     it('It should display missing destination error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'T-shirts',
-        origin: 'Matambi',
-        userId: 3,
-        weight: 3,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
@@ -188,13 +191,14 @@ describe('It should test parcel creation', () => {
       });
     });
     it('It should display missing userId error', (done) => {
-      const id = uuidv1();
       const parcel = {
-        id,
-        name: 'T-shirts',
-        origin: 'Matambi',
-        destination: 'Kigali',
-        weight: 1,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);

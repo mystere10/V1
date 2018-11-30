@@ -28,7 +28,6 @@ afterEach('Remove parcelOders ', (done) => {
 });
 
 describe('TEST TO GET PARCELS ', () => {
-  let id;
   before('Create a record', (done) => {
     const order = { 
       userid: 1,
@@ -41,7 +40,6 @@ describe('TEST TO GET PARCELS ', () => {
       phone: '078432222',
     };
     chai.request(app).post('/api/v1/parcels').send(order).end((error, res) => {
-      { id } = res.body.response; 
       if (error) done(error);
       done();
     });
@@ -86,3 +84,4 @@ describe('TEST TO GET PARCELS ', () => {
       .end(done);
   });
 });
+

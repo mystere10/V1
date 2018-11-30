@@ -22,22 +22,13 @@ describe('TEST FOR GET USERS', () => {
   });
 });
 
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import uuidv1 from 'uuid/v1';
-import app from '../app';
-
-const should = chai.should();
-
-chai.use(chaiHttp);
-
 before('Create data', (done) => {
-  const id = uuidv1();
   const user = {
-    id,
-    name: 'Yves',
-    email: 'iraguhaivos@gmail.com',
-    password: 'whafhafha',
+    fname: 'Sylvie',
+    lname: 'Ishimwe',
+    email: 'sylvie@gmail.com',
+    phone: '0784357799',
+    password: 'ishimwe123',
   };
   chai.request(app).post('/api/v1/users').send(user).end((error, res) => {
     if (error) done(error);
