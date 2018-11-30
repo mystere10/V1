@@ -15,37 +15,28 @@ describe('TEST FOR GET USERS', () => {
   describe('TEST TO GET A SPECIFIC USER', () => {
     it('It should a specific user', (done) => {
       request(app)
-        .get('/api/v1/users/8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bu')
+        .get('/api/v1/users/3')
         .expect(202)
         .end(done);
     });
   });
 });
 
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import uuidv1 from 'uuid/v1';
-import app from '../app';
-
-const should = chai.should();
-
-chai.use(chaiHttp);
-
 before('Create data', (done) => {
-  const id = uuidv1();
   const user = {
-    id,
-    name: 'Yves',
-    email: 'iraguhaivos@gmail.com',
-    password: 'whafhafha',
+    fname: 'innocent',
+    lname: 'nkunzi',
+    email: 'inno@gmail.com',
+    phone: '0788989999',
+    password: 'kig38787',
   };
-  chai.request(app).post('/api/v1/users').send(user).end((error, res) => {
+  chai.request(app).post('/api/v1/auth/signup').send(user).end((error, res) => {
     if (error) done(error);
     done();
   });
 });
 
-describe('It should test fetching all users', () => {
+describe('It should test to get users', () => {
   it('It should return the list of all user', (done) => {
     chai.request(app).get('/api/v1/users').end((error, res) => {
       if (error) done(error);

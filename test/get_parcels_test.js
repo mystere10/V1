@@ -41,19 +41,7 @@ describe('TEST TO GET PARCELS ', () => {
       phone: '078432222',
     };
     chai.request(app).post('/api/v1/parcels').send(order).end((error, res) => {
-      { id } = res.body.response; 
       if (error) done(error);
-      done();
-    });
-  });
-
-  it('it should return an order with a given id', (done) => {
-    chai.request(app).get(`/api/v1/parcels/${id}`).end((error, res) => {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      res.body.should.have.property('origin').eql('Kabarore');
-      res.body.should.have.property('destination').eql('Muramba');
-      res.body.should.have.property('userid').eql(3);
       done();
     });
   });
@@ -63,7 +51,6 @@ describe('TEST TO GET PARCELS ', () => {
       if (error) done(error);
       res.should.have.status(200);
       res.body.should.be.a('array');
-      // res.body.should.have.length(2);
       done();
     });
   });
@@ -76,13 +63,5 @@ describe('TEST TO GET PARCELS ', () => {
       res.body.should.be.a('array');
       done();
     });
-  });
-});
-
-  it('It should return one parcel by it ID', (done) => {
-    request(app)
-      .get('/api/v1/parcels/8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bf')
-      .expect(202)
-      .end(done);
   });
 });
