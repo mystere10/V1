@@ -10,7 +10,7 @@ const getAllUsers = (req, res) => {
   db.query('SELECT * FROM registration')
     .then((response) => {
       if (response.rows.length) {
-        res.send(response.rows);
+        res.status(202).send(response.rows);
       } else {
         res.status(400).send({ message: 'No record found' });
       }
