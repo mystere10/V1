@@ -4,12 +4,26 @@ import jwt from 'jsonwebtoken';
 import db from '../db/connect';
 import 'babel-polyfill';
 import verifyToken from '../helpers/auth';
-import schema from '../helpers/validation';
 
 const createParcel = (req, res) => {
   const {
     userid, reciepientname, weight, destinationtown, destinationcountry, postcode, phone,
   } = req.body;
+
+  const schema = {
+    userid: Joi.number().integer()
+      .required,
+    reciepientname: Joi.string().alphanum().min(3).max(30)
+      .required(),
+    weight: Joi.number().integer()
+      .required(),
+    destinationtown: Joi.string().alphanum().min(3).max(30)
+      .required(),
+    destinationcountry: Joi.string().alphanum().min(3).max(30)
+      .required(),
+    postcode: Joi.string().alphanum().min(3).max(30),
+    phone: Joi.number().integer().min(10).max(10),
+  };
 
 
   const result = Joi.validate(req.body, schema);
@@ -17,19 +31,17 @@ const createParcel = (req, res) => {
     res.status(400).send({ message: result.error.details[0].message });
     return;
   }
-  if (phone === '' || phone === null) {
-    res.status(403).send('Plese enter the destination postcode');
-  }
-    const status = 'in transit';
-    const query = 'INSERT INTO orders(userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone)values($1,$2,$3,$4,$5,$6,$7,$8) returning*';
-    db.query(query, [userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone])
-      .then((response) => {
-        res.status(201).send({ message: 'Parcel ordered successfully', orders: response.rows[0] });
-      })
-      .catch((error) => {
-        res.send({ message: 'Not inserted' });
-        console.log(error);
-      });
+  
+  const status = 'in transit';
+  const query = 'INSERT INTO orders(userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone)values($1,$2,$3,$4,$5,$6,$7,$8) returning*';
+  db.query(query, [userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone])
+    .then((response) => {
+      res.status(201).send({ message: 'Parcel ordered successfully', orders: response.rows[0] });
+    })
+    .catch((error) => {
+      res.send({ message: 'Not inserted' });
+      console.log(error);
+    });
 };
 
 
@@ -37,7 +49,7 @@ const getAllParcels = (req, res) => {
   db.query('SELECT * FROM orders')
     .then((response) => {
       if (response.rows.length) {
-        res.status(202).send({ message: 'All orders has been successfully returned', response: response.rows[0] });
+        res.status(202).send(response.rows);
       } else {
         res.status(404).send({ message: 'No record found' });
       }
