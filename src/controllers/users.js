@@ -12,12 +12,11 @@ const getAllUsers = (req, res) => {
       if (response.rows.length) {
         res.send(response.rows);
       } else {
-        res.send({ message: 'No record found' });
+        res.status(400).send({ message: 'No record found' });
       }
     })
     .catch((error) => {
-      res.send({ message: 'No record found' });
-      console.log(error);
+      res.status(500).send(error);
     });
 };
 
@@ -28,7 +27,7 @@ const getUserById = (req, res) => {
 
   db.query('SELECT * FROM registration WHERE id=$1', [id])
     .then((response) => {
-      res.status(200).send({ message: 'A user has be returned', userById: response.rows[0] });
+      res.status(202).send({ message: 'A user has be returned', userById: response.rows[0] });
     }).catch((error) => {
       res.send({ message: 'Not user found' });
       console.log(error);

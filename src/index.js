@@ -27,8 +27,6 @@ app.use('/api/v1/parcels', parcels);
 
 app.use('/api/v1/users', users);
 
-// app.use('/api/v1/auth', auth);
-
 
 // PORT ASSIGNATION
 const port = process.env.PORT || 5000;

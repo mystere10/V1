@@ -1,44 +1,25 @@
 import uuid from 'uuid/v1';
+import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import db from '../db/connect';
 import 'babel-polyfill';
 import verifyToken from '../helpers/auth';
+import schema from '../helpers/validation';
 
 const createParcel = (req, res) => {
   const {
     userid, reciepientname, weight, destinationtown, destinationcountry, postcode, phone,
   } = req.body;
 
-  if (userid === ' ' || userid === null) {
-    res.status(403).send('Please your valid id');
-  }
-  if (reciepientname < 3) {
-    res.status(403).send('The name should not be below three characters ');
-  }
 
-  if (weight === '' || weight === null) {
-    res.status(403).send('Plese enter the weight of your parcel');
+  const result = Joi.validate(req.body, schema);
+  if (result.error) {
+    res.status(400).send({ message: result.error.details[0].message });
+    return;
   }
-
-  if (typeof (weight) !== 'number') {
-    res.status(403).send('Please enter only numbers');
-  }
-
-  if (destinationtown === '' || destinationtown === null) {
-    res.status(403).send('Plese enter the destination town');
-  }
-
-  if (destinationcountry === '' || destinationcountry === null) {
-    res.status(403).send('Plese enter the destination country');
-  }
-
-  if (postcode === '' || postcode === null) {
-    res.status(403).send('Plese enter the destination postcode');
-  }
-
   if (phone === '' || phone === null) {
     res.status(403).send('Plese enter the destination postcode');
-  } else {
+  }
     const status = 'in transit';
     const query = 'INSERT INTO orders(userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone)values($1,$2,$3,$4,$5,$6,$7,$8) returning*';
     db.query(query, [userid, reciepientname, weight, destinationtown, destinationcountry, status, postcode, phone])
@@ -49,7 +30,6 @@ const createParcel = (req, res) => {
         res.send({ message: 'Not inserted' });
         console.log(error);
       });
-  }
 };
 
 
@@ -57,13 +37,13 @@ const getAllParcels = (req, res) => {
   db.query('SELECT * FROM orders')
     .then((response) => {
       if (response.rows.length) {
-        res.send(response.rows);
+        res.status(202).send({ message: 'All orders has been successfully returned', response: response.rows[0] });
       } else {
-        res.send({ message: 'No record found' });
+        res.status(404).send({ message: 'No record found' });
       }
     })
     .catch((error) => {
-      res.send({ message: 'No record found' });
+      res.send(error);
       console.log(error);
     });
 };
@@ -84,7 +64,6 @@ const getOneParcel = (req, res) => {
     console.log(error);
   });
 };
-
 
 const changeStatus = (req, res) => {
   const { id } = req.params;
