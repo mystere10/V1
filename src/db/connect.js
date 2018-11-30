@@ -4,6 +4,7 @@ import { Pool } from 'pg';
 
 import 'babel-polyfill';
 
+
 const connectionString = process.env.DATABASE_URL;
 const localDb = {
   host: 'localhost',
@@ -13,6 +14,16 @@ const localDb = {
   password: 'rugina/303.',
 }
 const pool = connectionString ? new Pool({connectionString}): new Pool(localDb);
+
+const connect = () => new Promise(async (resolve, reject) => {
+  try {
+    pool.connect()
+      .then(() => console.log('connected'))
+      .catch((error) => console.log(error));
+  } catch(error) {
+    console.log(error);
+  }
+});
 
 const defaultTables = async () => {
   const registration = `create table if not exists users
@@ -27,7 +38,7 @@ const defaultTables = async () => {
   const orders = `create table if not exists parcels
     (
         id SERIAL primary key,
-        userid integer NOT NULL,
+        userid foreign key references registration(id),
         reciepientname varchar NOT NULL
         weight integer NOT NULL,
         destinationtown varchar NOT NULL,
@@ -44,15 +55,6 @@ const defaultTables = async () => {
 
 defaultTables();
 
-const connect = () => new Promise(async (resolve, reject) => {
-  try {
-    pool.connect()
-      .then(() => console.log('connected'))
-      .catch((error) => console.log(error));
-  } catch(error) {
-    console.log(error);
-  }
-});
 
 const db = {
   connect,
