@@ -27,9 +27,9 @@ const getUserById = (req, res) => {
 
   db.query('SELECT * FROM registration WHERE id=$1', [id])
     .then((response) => {
-      res.status(202).send({ message: 'A user has be returned', userById: response.rows[0] });
+      res.status(200).send({ message: 'A user has be returned', userById: response.rows[0] });
     }).catch((error) => {
-      res.send({ message: 'Not user found' });
+      res.send({ message: 'An error has occured' });
       console.log(error);
     });
 };
@@ -39,7 +39,7 @@ const deleteAllUsers = (req, res) => {
     .then((response) => {
       res.status(200).send({ message: 'Table truncated', users: response.rows[0] });
     }).catch((error) => {
-      res.status(403).send({ message: 'Table not truncated ' });
+      res.status(400).send({ message: 'An error has occured' });
       console.log(error);
     });
 };

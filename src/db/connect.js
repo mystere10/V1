@@ -4,6 +4,8 @@ import { Pool } from 'pg';
 
 import 'babel-polyfill';
 
+dotenv.config();
+
 const pool = new Pool({
   host: 'localhost',
   user: 'nkunzi',
@@ -23,7 +25,7 @@ const connect = () => new Promise(async (resolve, reject) => {
 });
 
 const defaultTables = async () => {
-  const registration = `create table if not exists users
+  const registration = `create table if not exists registration
     (
         id SERIAL primary key,
         fname varchar NOT NULL,
@@ -34,7 +36,7 @@ const defaultTables = async () => {
         function varchar NOT null default 'user' 
         ON DELETE CASCADE ON UPDATE CASCADE
     );`;
-  const orders = `create table if not exists parcels
+  const orders = `create table if not exists orders
     (
         id SERIAL primary key,
         userid foreign key references registration(id),
