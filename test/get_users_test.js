@@ -4,25 +4,12 @@ import request from 'supertest';
 
 import app from '../src/index';
 
-describe('TEST FOR GET USERS', () => {
-  it('It should get all users redisted in the system', (done) => {
-    request(app)
-      .get('/api/v1/users')
-      .expect(202)
-      .end(done);
-  });
+const chaiHttp = require('chai-http');
 
-  describe('TEST TO GET A SPECIFIC USER', () => {
-    it('It should a specific user', (done) => {
-      request(app)
-        .get('/api/v1/users/8cd981b0-eb3c-11e8-9db2-25ea4fd7f1bu')
-        .expect(202)
-        .end(done);
-    });
-  });
-});
+chai.use(chaiHttp);
+const should = chai.should();
 
-before('Create data', (done) => {
+beforeEach('Registering a user into the system', (done) => {
   const user = {
     fname: 'Sylvie',
     lname: 'Ishimwe',
@@ -30,23 +17,41 @@ before('Create data', (done) => {
     phone: '0784357799',
     password: 'ishimwe123',
   };
-  chai.request(app).post('/api/v1/users').send(user).end((error, res) => {
+  chai.request(app).post('/api/v1/auth/signup').send(user).end((error, res) => {
     if (error) done(error);
     done();
   });
 });
 
-describe('It should test fetching all users', () => {
-  it('It should return the list of all user', (done) => {
+describe('TEST TO GET USERS', () => {
+  it('It should get all users redisted in the system', (done) => {
+    request(app)
+      .get('/api/v1/users')
+      .expect(200)
+      .end(done);
+  });
+
+  describe('TEST TO GET A SPECIFIC USER', () => {
+    it('It should a specific user', (done) => {
+      request(app)
+        .get('/api/v1/users/1')
+        .expect(200)
+        .end(done);
+    });
+  });
+});
+
+describe('TEST TO GET USERS', () => {
+  it('It should return all users from the database', (done) => {
     chai.request(app).get('/api/v1/users').end((error, res) => {
       if (error) done(error);
       res.should.have.status(200);
-      res.body.should.be.a('object');
+      res.body.should.be.a('array');
       done();
     });
   });
   it('It should return a particular user', (done) => {
-    chai.request(app).get('/api/v1/users/:id').end((error, res) => {
+    chai.request(app).get('/api/v1/users/1').end((error, res) => {
       if (error) done(error);
       res.should.have.status(200);
       res.body.should.be.a('object');

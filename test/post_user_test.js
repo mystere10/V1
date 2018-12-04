@@ -4,10 +4,15 @@ import request from 'supertest';
 
 import app from '../src/index';
 
+const chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
+const should = chai.should();
+
 describe('ENDPOINT TEST', () => {
   it('It should register an new user into the system', (done) => {
     request(app)
-      .post('/api/v1/users')
+      .post('/api/v1/auth/signupn')
       .send({
         fname: 'kamali',
         lname: 'yves',
@@ -132,4 +137,3 @@ describe('It should test creating a user', () => {
       });
     });
   });
-  

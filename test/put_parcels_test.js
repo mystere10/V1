@@ -4,6 +4,11 @@ import request from 'supertest';
 
 import app from '../src/index';
 
+const chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
+const should = chai.should();
+
 
 describe('TEST FOR PUT PARCELS', () => {
   it('It should edit any particular order by it ID', (done) => {
