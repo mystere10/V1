@@ -16,6 +16,7 @@ describe('It should if a parcel has been created', () => {
       done();
     });
   });
+
   describe('Test is an order was successfully created', () => {
     it('It should return a acknowledgement message', (done) => {
       const parcel = {      
@@ -27,7 +28,7 @@ describe('It should if a parcel has been created', () => {
         postcode: '105',
         phone: '782143544',
       };
-      chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
+      chai.request(app).post('/api/v1/parcels').send(order).end((error, res) => {
         if (error) done(error);
         res.should.have.status(201);
         res.body.should.be.a('object');
@@ -75,7 +76,7 @@ describe('It should if a parcel has been created', () => {
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
-        res.should.have.status(400);
+        res.should.have.status(403);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('reciepientname is not allowed to be empty"');
         done();

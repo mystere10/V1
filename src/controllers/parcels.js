@@ -21,8 +21,10 @@ const createParcel = (req, res) => {
     destinationcountry: Joi.string().alphanum().min(3).max(30)
       .required(),
     postcode: Joi.string().alphanum().min(3).max(30),
+
     phone: Joi.number().integer().min(10),
   };
+
   const result = Joi.validate(req.body, schema);
   if (result.error) {
     res.status(400).send({ message: result.error.details[0].message });
@@ -45,7 +47,9 @@ const getAllParcels = (req, res) => {
   db.query('SELECT * FROM orders')
     .then((response) => {
       if (response.rows.length) {
+
         res.status(200).send({ message: 'All orders has been successfully returned', response: response.rows });
+
       } else {
         res.status(404).send({ message: 'No record found' });
       }

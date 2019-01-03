@@ -48,7 +48,7 @@ describe('Test to get parcel orders ', () => {
       done();
     });
   });
-
+  
   it('it should return an order by their id', (done) => {
     const id = 20;
     chai.request(app).get(`/api/v1/parcels/${id}`).end((error, res) => {
@@ -68,6 +68,7 @@ describe('Test to get parcel orders ', () => {
       if (error) done(error);
       res.should.have.status(200);
       res.body.should.be.a('object');
+
       done();
     });
   });

@@ -8,7 +8,6 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 const should = chai.should();
-
 describe('ENDPOINT TEST', () => {
   it('It should register an new user into the system', (done) => {
     request(app)
@@ -26,7 +25,7 @@ describe('ENDPOINT TEST', () => {
 
   it('It should login a user in order to create orders', (done) => {
     request(app)
-      .post('/api/v1/users')
+      .post('/api/v1/auth/signin')
       .send({
         email: 'nkunziinnocent@gmail.com',
         password: 'nkunzi123',
@@ -52,7 +51,7 @@ describe('It should test creating a user', () => {
         phone: '0784357799',
         password: 'ishimwe123',
     };
-    chai.request(app).post('/api/v1/users/signup').send(user).end((error, res) => {
+    chai.request(app).post('/api/v1/auth/signup').send(user).end((error, res) => {
       if (error) done(error);
       res.body.should.be.a('object');
       res.body.should.have.property('message').eql('user registered successfully');
@@ -64,16 +63,16 @@ describe('It should test creating a user', () => {
 });
   describe('Should test invalid fields', () => {
     it('An invalid name error', (done) => {
-      
       const user = {
-        id,
-        name: '121231231',
-        email: 'afafhag@gmail.com',
-        password: 'afafsafgafsdf',
+        fname: '',
+        lname: 'yves',
+        email: 'kama@gmail.com',
+        password: 'kama123',
+        status: 'user',
       };
       chai.request(app).post('/api/v1/users/signup').send(user).end((error, res) => {
         if (error) done(error);
-        res.body.should.have.property('message').eql('Invalid name, the name should start with letter');
+        res.body.should.have.property('message').eql('Invalid name, the name is required');
         done();
       });
     });
@@ -95,14 +94,15 @@ describe('It should test creating a user', () => {
   describe('It should test missing fields errors', () => {
     it('A missing name error', (done) => {
       const user = {
-        id,
-        email: 'afafafaf@gmail.com',
-        password: 'afhafha',
+        lname: 'yves',
+        email: 'kama@gmail.com',
+        password: 'kama123',
+        status: 'user',
       };
       chai.request(app).post('/api/v1/users/signup').send(user).end((error, res) => {
         if (error) done(error);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please complete the required fields');
+        res.body.should.have.property('message').eql('fname is not allowed to be empty');
         done();
       });
     });
@@ -117,7 +117,7 @@ describe('It should test creating a user', () => {
       chai.request(app).post('/api/v1/users/signup').send(user).end((error, res) => {
         if (error) done(error);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please complete the required fields');
+        res.body.should.have.property('message').eql('fname is not allowed to be empty');
         done();
       });
     });
@@ -132,7 +132,7 @@ describe('It should test creating a user', () => {
       chai.request(app).post('/api/v1/users/signup').send(user).end((error, res) => {
         if (error) done(error);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please complete the required fields');
+        res.body.should.have.property('message').eql('fname is not allowed to be emptys');
         done();
       });
     });
