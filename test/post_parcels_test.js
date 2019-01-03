@@ -4,54 +4,41 @@ import request from 'supertest';
 
 import app from '../src/index';
 
-describe('ENDPOINT TEST', () => {
-  it('It should register an order from a user', (done) => {
-    request(app)
-      .post('/api/v1/parcels')
-      .send({
-        receipientName: 'Olivier',
-        weight: 1,
-        destinationTown: 'Noirobi',
-        destinationCountry: 'Kanya',
-        postcode: 101,
-        phone: '0784354333',
-        status: 'In transit',
-      })
-      .expect(201)
-      .end(done);
-  });
-});
+const chaiHttp = require('chai-http');
 
-describe('It should test parcel creation', () => {
-  beforeEach('Clear data from database', (done) => {
+chai.use(chaiHttp);
+const should = chai.should();
+
+describe('It should if a parcel has been created', () => {
+  beforeEach('Delete data already into the database', (done) => {
     chai.request(app).delete('/api/v1/parcels').end((error, res) => {
       if (error) done(error);
       done();
     });
   });
-  describe('Successful order creation', () => {
-    it('It should acknowledge that parcel was created with created object', (done) => {
-      const order = {
-        receipientName: 'Olivier',
-        weight: 1,
-        destinationTown: 'Noirobi',
-        destinationCountry: 'Kanya',
-        postcode: 101,
-        phone: '0784354333',
-        status: 'In transit',
+
+  describe('Test is an order was successfully created', () => {
+    it('It should return a acknowledgement message', (done) => {
+      const parcel = {      
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 5,
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: '782143544',
       };
       chai.request(app).post('/api/v1/parcels').send(order).end((error, res) => {
         if (error) done(error);
         res.should.have.status(201);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('The order was successfully created');
+        res.body.should.have.property('message').eql('Parcel ordered successfully');
         res.body.should.have.property('response');
-        res.body.response.should.have.property('receipientName').eql('receipientName');
-        res.body.response.should.have.property('weight').eql(1);
-        res.body.response.should.have.property('destinationTown').eql('Noirobi');
-        res.body.response.should.have.property('destinationCountry').eql('Kanya');
-        res.body.response.should.have.property('postcode').eql('0784354333');
-        res.body.response.should.have.property('status').eql('In transit');
+        res.body.response.should.have.property('reciepientname').eql('Kalisa');
+        res.body.response.should.have.property('weight').eql('5');
+        res.body.response.should.have.property('destinationtown').eql('Rwanda');
+        res.body.response.should.have.property('postcode').eql(105);
+        res.body.response.should.have.property('phone').eql(782143544);
         done();
       });
     });
@@ -60,148 +47,97 @@ describe('It should test parcel creation', () => {
   describe('invalid input', () => {
     it('It should display an invalid weight error', (done) => {
       const parcel = {
-        receipientName: 'Olivier',
-        weight: '1',
-        destinationTown: 'Noirobi',
-        destinationCountry: 'Kanya',
-        postcode: 101,
-        phone: '0784354333',
-        status: 'In transit',
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 'dfvb6543',
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Invalid weight, the weight should be number');
+        res.body.should.have.property('message').eql('weight must be a number"');
         done();
       });
     });
 
-    it('It should display an invalid name error', (done) => {
+    it('It should throw a message in case destinationtown', (done) => {
       const parcel = {
-        receipientName: 'Olivier',
-        weight: '1',
-        destinationTown: 'Noirobi',
-        destinationCountry: 'Kanya',
-        postcode: 101,
-        phone: '0784354333',
-        status: 'In transit',
+        userId: 1,
+        reciepientname: '',
+        weight: 5,
+        destinationtown: 'murunda',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
         res.should.have.status(403);
         res.body.should.be.a('object');
-        // res.body.should.have.property('message').eql('Invalid name, the name should start with a letter');
+        res.body.should.have.property('message').eql('reciepientname is not allowed to be empty"');
         done();
       });
     });
 
-    it('It should display an invalid origin error', (done) => {
+    it('It should display an weight', (done) => {
       const parcel = {
-        receipientName: 'Olivier',
-        weight: '1',
-        destinationTown: 'Noirobi',
-        destinationCountry: 'Kanya',
-        postcode: 101,
-        phone: '0784354333',
-        status: 'In transit',
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 'oiuyt',
+        destinationtown: 'musanze',
+        destinationcountry: 'Rwanda',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Invalid origin, the origin should be a place');
+        res.body.should.have.property('message').eql('weight must be a number');
         done();
       });
     });
 
-    it('It should display an invalid destination error', (done) => {
-      const id = uuidv1();
+    it('It should display an invalid destinationcountry error in case it is empty', (done) => {
       const parcel = {
-        id,
-        name: 'Tshirts',
-        origin: 'Kabarore',
-        destination: '122331',
-        userId: 3,
-        weight: 0.3,
+        userId: 1,
+        reciepientname: 'Kalisa',
+        weight: 1.5,
+        destinationtown: 'musanze',
+        destinationcountry: '',
+        postcode: '105',
+        phone: 782143544,
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Invalid destination, the destination should be a place');
+        res.body.should.have.property('message').eql('weight must be a number');
         done();
       });
     });
   });
 
-
-  describe('Absence of a field', () => {
-    it('It should display a missing name error', (done) => {
-      const id = uuidv1();
+  describe('In case no data is provided', () => {
+    it('It should display a missing field', (done) => {
       const parcel = {
-        id,
-        origin: 'Matambi',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 1,
+        userId: '',
+        reciepientname: '',
+        weight: '',
+        destinationtown: '',
+        destinationcountry: '',
+        postcode: '',
+        phone: '',
       };
       chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
         if (error) done(error);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please provide all the required fields');
-        done();
-      });
-    });
-    it('It should display missing origin error', (done) => {
-      const id = uuidv1();
-      const parcel = {
-        id,
-        name: 'T-shirts',
-        destination: 'Muramba',
-        userId: 3,
-        weight: 1,
-      };
-      chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
-        if (error) done(error);
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please provide all the required fields');
-        done();
-      });
-    });
-    it('It should display missing destination error', (done) => {
-      const id = uuidv1();
-      const parcel = {
-        id,
-        name: 'T-shirts',
-        origin: 'Matambi',
-        userId: 3,
-        weight: 3,
-      };
-      chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
-        if (error) done(error);
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please provide all the required fields');
-        done();
-      });
-    });
-    it('It should display missing userId error', (done) => {
-      const id = uuidv1();
-      const parcel = {
-        id,
-        name: 'T-shirts',
-        origin: 'Matambi',
-        destination: 'Kigali',
-        weight: 1,
-      };
-      chai.request(app).post('/api/v1/parcels').send(parcel).end((error, res) => {
-        if (error) done(error);
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Please provide all the required fields');
+        res.body.should.have.property('message').eql('');
         done();
       });
     });
