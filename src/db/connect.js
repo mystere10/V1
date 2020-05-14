@@ -7,11 +7,11 @@ import 'babel-polyfill';
 
 const connectionString = process.env.DATABASE_URL;
 const localDb = {
-  host: 'localhost',
-  user: 'nkunzi',
-  database: 'senditdb',
-  port: 5432,
-  password: 'rugina/303.',
+  host: ,
+  user: ',
+  database: ,
+  port: ,
+  password: ,
 }
 const pool = connectionString ? new Pool({connectionString}): new Pool(localDb);
 
